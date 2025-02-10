@@ -121,21 +121,33 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script>
+      const jsConfetti = new JSConfetti();
+
       function openModal() {
         document.getElementById("modal").style.display = "flex";
       }
+
       function closeModal() {
         document.getElementById("modal").style.display = "none";
       }
-      function sayYes() {
-        const today = new Date().toLocaleDateString();
-        alert("You got a date night scheduled on " + today + "!");
+
+      async function sayYes() {
+        await jsConfetti.addConfetti();
+
+        alert(
+          "You got a date night (day) scheduled on Saturday (can change if you can't)!"
+        );
         closeModal();
       }
-      function sayNo() {
-        const audio = new Audio("assets/sad_sound.mp3");
-        audio.play();
+
+      async function sayNo() {
+        await jsConfetti.addConfetti({
+          emojis: ["😭"],
+          confettiRadius: 6,
+          confettiNumber: 500,
+        });
         closeModal();
       }
     </script>
